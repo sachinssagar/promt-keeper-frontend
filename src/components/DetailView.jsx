@@ -43,7 +43,7 @@ function DetailView() {
     return <LoaderSpinner />;
   }
 
-  if (!item) return <div>Item not found</div>;
+  if (!item) return <div>Promt not found</div>;
 
   return (
     <div className="container mt-4">
@@ -51,18 +51,18 @@ function DetailView() {
         <div className="col-md-6">
           <img
             src={item.image.url}
-            alt={item.title}
+            alt={item.promt}
             className="img-fluid rounded"
             style={{ maxHeight: '400px', objectFit: 'cover' }}
           />
         </div>
         <div className="col-md-6">
-          <h2>{item.title}</h2>
+          <h2>{item.promt}</h2>
           <Link to={`/edit/${id}`} className="btn btn-secondary mt-3 me-2">
-            Edit Item
+            Edit Promt
           </Link>
           <button className="btn btn-danger mt-3" onClick={handleDelete}>
-            Delete Item
+            Delete Promt
           </button>
         </div>
       </div>

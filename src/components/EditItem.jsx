@@ -7,7 +7,7 @@ import LoaderSpinner from '../utils/Loader';
 function EditItem() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
+  const [promt, setPromt] = useState('');
   const [image, setImage] = useState('');
   const [imagePrevURL, setImagePrevURL] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -16,8 +16,7 @@ function EditItem() {
     const fetchItem = async () => {
       try {
         const response = await apiCalls.getItem(id);
-        setTitle(response.title);
-        setImage(response.image.url);
+        setPromt(response.promt);
         setImagePrevURL(response.image.url);
       } catch (error) {
         console.error('Error fetching item:', error);
@@ -32,9 +31,11 @@ function EditItem() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    const _url = URL.createObjectURL(file);
-    setImagePrevURL(_url);
-    setFileToBase(file);
+    if (file) {
+      const _url = URL.createObjectURL(file);
+      setImagePrevURL(_url);
+      setFileToBase(file);
+    }
   };
 
   const setFileToBase = (file) => {
@@ -49,7 +50,12 @@ function EditItem() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await apiCalls.updateItem(id, { title, image: image });
+      const data = { promt };
+      if (image) {
+        data.image = image;
+      }
+
+      await apiCalls.updateItem(id, data);
       toast.success('Item updated successfully');
       navigate(`/view/${id}`);
     } catch (error) {
@@ -89,12 +95,12 @@ function EditItem() {
 
           <div className="col-md-6">
             <div className="mb-3">
-              <label className="form-label">Title</label>
+              <label className="form-label">Promt</label>
               <input
                 type="text"
                 className="form-control"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={promt}
+                onChange={(e) => setPromt(e.target.value)}
                 required
               />
             </div>
@@ -102,7 +108,7 @@ function EditItem() {
         </div>
 
         <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
-          {isLoading ? 'Updating...' : 'Update Item'}
+          {isLoading ? 'Updating...' : 'Update Promt'}
         </button>
       </form>
     </div>

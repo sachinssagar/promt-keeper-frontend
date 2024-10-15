@@ -4,7 +4,7 @@ import { toast } from 'react-hot-toast';
 import apiCalls from '../api';
 
 function AddItem() {
-  const [title, setTitle] = useState('');
+  const [promt, setPromt] = useState('');
   const navigate = useNavigate();
   const [image, setImage] = useState('');
   const [imagePrevURL, setImagePrevURL] = useState('');
@@ -29,7 +29,7 @@ function AddItem() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await apiCalls.addItem({ title, image: image });
+      const response = await apiCalls.addItem({ promt, image: image });
       if (response) {
         const newItemId = response._id;
         toast.success('Item added successfully');
@@ -49,12 +49,12 @@ function AddItem() {
       <form onSubmit={handleSubmit}>
         <div className="row mb-3">
           <div className="col-12">
-            <label className="form-label">Title</label>
+            <label className="form-label">Promt</label>
             <input
               type="text"
               className="form-control"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={promt}
+              onChange={(e) => setPromt(e.target.value)}
               required
             />
           </div>
@@ -87,7 +87,7 @@ function AddItem() {
         )}
 
         <button type="submit" className="btn btn-primary" disabled={isLoading}>
-          {isLoading ? 'Adding Item...' : 'Add Item'}
+          {isLoading ? 'Adding Promt...' : 'Add Promt'}
         </button>
       </form>
     </div>

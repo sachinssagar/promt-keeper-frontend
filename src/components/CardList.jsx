@@ -35,12 +35,12 @@ function CardList() {
             >
               <img
                 src={item.image.url}
-                alt={item.title}
+                alt={item.promt}
                 className="card-img-top"
                 style={{ height: '200px', objectFit: 'cover' }}
               />
               <div className="card-body d-flex flex-column">
-                <h5 className="card-title">{item?.title}</h5>
+                <h5 className="card-title">{item?.promt}</h5>
               </div>
             </div>
           </div>
