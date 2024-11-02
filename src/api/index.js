@@ -4,7 +4,7 @@ import { reqAnonPost, reqAnonGet, reqAnonPut, reqDelete } from '../utils/request
 const apiBaseUrl = config.apiBaseUrl;
 
 const apiCalls = {
-  getAllItems: () => reqAnonGet(`${apiBaseUrl}/promts`),
+  getAllItems: (params) => reqAnonGet(`${apiBaseUrl}/promts`, params),
   getItem: (id) => reqAnonGet(`${apiBaseUrl}/promts/${id}`),
   addItem: (data) => reqAnonPost(`${apiBaseUrl}/promts`, data),
   updateItem: (id, data) => reqAnonPut(`${apiBaseUrl}/promts/${id}`, data),

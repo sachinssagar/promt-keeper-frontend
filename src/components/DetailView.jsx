@@ -29,9 +29,9 @@ function DetailView() {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       try {
-        await apiCalls.deleteItem(id); // Call your delete API
+        await apiCalls.deleteItem(id);
         toast.success('Item deleted successfully');
-        navigate('/'); // Navigate back to the main list after deletion
+        navigate('/');
       } catch (error) {
         console.error('Error deleting item:', error);
         toast.error('Error deleting item');
@@ -48,7 +48,7 @@ function DetailView() {
   return (
     <div className="container mt-4">
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-4">
           <img
             src={item.image.url}
             alt={item.promt}
@@ -56,8 +56,8 @@ function DetailView() {
             style={{ maxHeight: '400px', objectFit: 'cover' }}
           />
         </div>
-        <div className="col-md-6">
-          <h2>{item.promt}</h2>
+        <div className="col-md-8">
+          <h6>{item.promt}</h6>
           <Link to={`/edit/${id}`} className="btn btn-secondary mt-3 me-2">
             Edit Promt
           </Link>
