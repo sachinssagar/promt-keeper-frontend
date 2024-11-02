@@ -27,15 +27,16 @@ function DetailView() {
   }, [id]);
 
   const handleDelete = async () => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      try {
-        await apiCalls.deleteItem(id);
-        toast.success('Item deleted successfully');
-        navigate('/');
-      } catch (error) {
-        console.error('Error deleting item:', error);
-        toast.error('Error deleting item');
-      }
+    setIsLoading(true);
+    try {
+      await apiCalls.deleteItem(id);
+      toast.success('Item deleted successfully');
+      navigate('/');
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      toast.error('Error deleting item');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,7 +54,7 @@ function DetailView() {
             src={item.image.url}
             alt={item.promt}
             className="img-fluid rounded"
-            style={{ maxHeight: '400px', objectFit: 'cover' }}
+            style={{ maxHeight: '400px', objectFit: 'contain' }}
           />
         </div>
         <div className="col-md-8">

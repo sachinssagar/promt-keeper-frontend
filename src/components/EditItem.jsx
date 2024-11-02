@@ -88,7 +88,7 @@ function EditItem() {
                 src={imagePrevURL}
                 alt="Preview"
                 className="img-fluid mt-2"
-                style={{ maxHeight: '400px', objectFit: 'cover' }}
+                style={{ maxHeight: '400px', objectFit: 'contain' }}
               />
             )}
           </div>
@@ -96,12 +96,13 @@ function EditItem() {
           <div className="col-md-6">
             <div className="mb-3">
               <label className="form-label">Promt</label>
-              <input
+              <textarea
                 type="text"
                 className="form-control"
                 value={promt}
                 onChange={(e) => setPromt(e.target.value)}
                 required
+                rows={10}
               />
             </div>
           </div>

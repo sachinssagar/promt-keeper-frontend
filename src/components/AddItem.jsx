@@ -48,43 +48,42 @@ function AddItem() {
       <h2>Add New Item</h2>
       <form onSubmit={handleSubmit}>
         <div className="row mb-3">
-          <div className="col-12">
+          <div className="col-md-4">
+            <div className="mb-3">
+              <label className="form-label">Image</label>
+              <input
+                type="file"
+                className="form-control"
+                accept="image/*"
+                onChange={handleImage}
+                required
+              />
+              {imagePrevURL && (
+                <div className="row mb-3">
+                  <div className="col-12">
+                    <img
+                      src={imagePrevURL}
+                      alt="Preview"
+                      className="img-thumbnail"
+                      style={{ maxHeight: '250px', objectFit: 'contain' }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="col-md-8">
             <label className="form-label">Promt</label>
-            <input
+            <textarea
               type="text"
               className="form-control"
               value={promt}
               onChange={(e) => setPromt(e.target.value)}
               required
+              rows={10}
             />
           </div>
         </div>
-
-        <div className="row mb-3">
-          <div className="col-12">
-            <label className="form-label">Image</label>
-            <input
-              type="file"
-              className="form-control"
-              accept="image/*"
-              onChange={handleImage}
-              required
-            />
-          </div>
-        </div>
-
-        {imagePrevURL && (
-          <div className="row mb-3">
-            <div className="col-12">
-              <img
-                src={imagePrevURL}
-                alt="Preview"
-                className="img-thumbnail"
-                style={{ maxHeight: '200px', width: '100%', objectFit: 'cover' }}
-              />
-            </div>
-          </div>
-        )}
 
         <button type="submit" className="btn btn-primary" disabled={isLoading}>
           {isLoading ? 'Adding Promt...' : 'Add Promt'}
