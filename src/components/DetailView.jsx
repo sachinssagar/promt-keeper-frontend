@@ -40,6 +40,20 @@ function DetailView() {
     }
   };
 
+  const handleCopy = () => {
+    if (item && item.promt) {
+      navigator.clipboard
+        .writeText(item.promt)
+        .then(() => {
+          toast.success('Prompt copied to clipboard!');
+        })
+        .catch((error) => {
+          console.error('Error copying prompt:', error);
+          toast.error('Failed to copy prompt');
+        });
+    }
+  };
+
   if (isLoading) {
     return <LoaderSpinner />;
   }
@@ -59,6 +73,9 @@ function DetailView() {
         </div>
         <div className="col-md-8">
           <h6>{item.promt}</h6>
+          <button className="btn btn-info mt-3 me-2" onClick={handleCopy}>
+            Copy Promt
+          </button>
           <Link to={`/edit/${id}`} className="btn btn-secondary mt-3 me-2">
             Edit Promt
           </Link>

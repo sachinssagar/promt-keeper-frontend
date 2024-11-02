@@ -6,6 +6,7 @@ import Pagination from '../utils/Pagination';
 function CardList() {
   const [items, setItems] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
   const itemsPerPage = 32;
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,7 +16,11 @@ function CardList() {
   useEffect(() => {
     const fetchItems = async (page) => {
       try {
-        const response = await apiCalls.getAllItems({ page, limit: itemsPerPage });
+        const response = await apiCalls.getAllItems({
+          page,
+          limit: itemsPerPage,
+          search: searchQuery, // Include the search query in the API call
+        });
         setItems(response.data);
         setTotalItems(response.total);
       } catch (error) {
@@ -23,10 +28,10 @@ function CardList() {
       }
     };
     fetchItems(currentPage);
-  }, [currentPage]);
+  }, [currentPage, searchQuery]); // Re-fetch when searchQuery changes
 
   const handlePageChange = (pageNumber) => {
-    setSearchParams({ page: pageNumber });
+    setSearchParams({ page: pageNumber, search: searchQuery }); // Include search in URL
     window.scrollTo(0, 0, 'smooth');
   };
 
@@ -34,21 +39,26 @@ function CardList() {
     navigate(`/view/${id}`);
   };
 
-  const handleAddClick = () => {
-    navigate('/add');
-  };
-
   const truncateText = (text, maxLength) => {
     return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
   };
 
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    setSearchParams({ page: 1, search: query }); // Reset to the first page on search
+  };
+
   return (
     <div className="container list-container mt-4">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="text-center">My Prompts</h2>
-        <button className="btn btn-primary" onClick={handleAddClick}>
-          Add
-        </button>
+      <div className="mb-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
       </div>
       {totalItems === 0 ? (
         <div className="no-items-message text-center">
