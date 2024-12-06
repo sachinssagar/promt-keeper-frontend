@@ -5,6 +5,7 @@ import apiCalls from '../api';
 
 function AddItem() {
   const [promt, setPromt] = useState('');
+  const [url, setUrl] = useState('');
   const navigate = useNavigate();
   const [image, setImage] = useState('');
   const [imagePrevURL, setImagePrevURL] = useState('');
@@ -29,7 +30,7 @@ function AddItem() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await apiCalls.addItem({ promt, image: image });
+      const response = await apiCalls.addItem({ promt, image: image, url });
       if (response) {
         const newItemId = response._id;
         toast.success('Item added successfully');
@@ -73,6 +74,16 @@ function AddItem() {
             </div>
           </div>
           <div className="col-md-8">
+            <div className="mb-3">
+              <label className="form-label">URL</label>
+              <input
+                type="text"
+                className="form-control"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                required
+              />
+            </div>
             <label className="form-label">Promt</label>
             <textarea
               type="text"
